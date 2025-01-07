@@ -146,7 +146,7 @@ To adjust the sensitivity or modify the prompts used during script analysis, you
 
    To adjust these, look for `max_new_tokens`, `temperature`, and `top_p` in the `model.py` file and set them to your desired values. For example:
    ```python
-   max_new_tokens = 10  # Set the maximum number of tokens
+   max_new_tokens = 500  # Set the maximum number of tokens
    temperature = 0.7  # A moderate level for balanced responses
    top_p = 0.9  # Adjust the diversity of the output
    ```

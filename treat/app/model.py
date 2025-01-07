@@ -21,7 +21,7 @@ def analyze_script(script):
         )
         print("Model loaded successfully")
 
-      # Define trigger categories with their descriptions
+        # Define trigger categories with their descriptions
         trigger_categories = {
             "Violence": {
                 "mapped_name": "Violence",
@@ -52,14 +52,13 @@ def analyze_script(script):
                 "description": (
                     "Extremely detailed and graphic depictions of highly severe physical injuries, mutilation, or extreme bodily harm, often accompanied by descriptions of heavy blood, exposed organs, "
                     "or dismemberment. This includes war scenes with severe casualties, horror scenarios involving grotesque creatures, or medical procedures depicted with excessive detail."
-                    "only answer yes if you're completely certain."
                 )
             },
             "Vomit": {
                 "mapped_name": "Vomit",
                 "description": (
-                    "Any explicit reference to vomiting, whether directly described, implied, or depicted. This includes detailed sounds, visual descriptions, mentions of nausea explicitly leading to vomiting, or any aftermath involving vomit." 
-                    "Respond 'yes' only if the scene unambiguously and clearly involves vomiting, with no room for doubt."
+                    "Any reference to the act of vomiting, whether directly described, implied, or depicted in detail. This includes sounds or visual descriptions of the act, "
+                    "mentions of nausea leading to vomiting, or its aftermath (e.g., the presence of vomit, cleaning it up, or characters reacting to it)."
                 )
             },
             "Sexual Content": {
@@ -77,7 +76,6 @@ def analyze_script(script):
                   "It also covers discussions or depictions of the aftermath of such abuse, such as trauma, emotional distress, legal proceedings, or therapy. "
                   "References to inappropriate sexual advances, groping, or any other form of sexual misconduct are also included, as well as the psychological and emotional impact on survivors. "
                   "Scenes where individuals are placed in sexually compromising situations, even if not directly acted upon, may also fall under this category."
-                  "only answer yes if you're completely certain of it's presence."
                 )
             },
             "Self-Harm": {
@@ -85,7 +83,6 @@ def analyze_script(script):
                 "description": (
                     "Any mention or depiction of behaviors where an individual intentionally causes harm to themselves. This includes cutting, burning, or other forms of physical injury, "
                     "as well as suicidal ideation, suicide attempts, or discussions of self-destructive thoughts and actions. References to scars, bruises, or other lasting signs of self-harm are also included."
-                    "only answer yes if you're completely certain."
                 )
             },
             "Gun Use": {
@@ -98,16 +95,15 @@ def analyze_script(script):
             "Animal Cruelty": {
                 "mapped_name": "Animal Cruelty",
                 "description": (
-                    "Any act of harm or abuse toward animals, whether intentional or accidental. This includes physical abuse (e.g., hitting, injuring, or killing animals), "
+                    "Any act of harm, abuse, or neglect toward animals, whether intentional or accidental. This includes physical abuse (e.g., hitting, injuring, or killing animals), "
                     "mental or emotional mistreatment (e.g., starvation, isolation), and scenes where animals are subjected to pain or suffering for human entertainment or experimentation."
-                    "Respond 'yes' only if the scene unambiguously and clearly involves Animal Cruelty, with no room for doubt"
                 )
             },
             "Mental Health Issues": {
                 "mapped_name": "Mental Health Issues",
                 "description": (
                     "Any reference to mental health struggles, disorders, or psychological distress. This includes mentions of depression, anxiety, PTSD, bipolar disorder, schizophrenia, "
-                    "or other conditions. Scenes depicting destructive coping mechanisms are also included."
+                    "or other conditions. Scenes depicting therapy sessions, psychiatric treatment, or coping mechanisms (e.g., medication, journaling) are also included. May cover subtle hints "
                     "like a character expressing feelings of worthlessness, hopelessness, or detachment from reality."
                 )
             }
@@ -154,7 +150,7 @@ def analyze_script(script):
                     print("Generating response...")  # Indicate that the model is generating a response
                     outputs = model.generate(
                         **inputs,
-                        max_new_tokens=10,  # Limit response length
+                        max_new_tokens=3,  # Limit response length
                         do_sample=True,  # Enable sampling for more diverse output
                         temperature=0.5,  # Control randomness of the output
                         top_p=0.9,  # Use nucleus sampling
