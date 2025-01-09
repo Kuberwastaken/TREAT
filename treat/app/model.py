@@ -112,22 +112,23 @@ def analyze_script(script):
         print("\nProcessing text...")  # Output indicating the text is being processed
         chunk_size = 256  # Set the chunk size for text processing
         overlap = 15  # Overlap between chunks for context preservation
-        script_chunks = [text[i:i + chunk_size] for i in range(0, len(text), chunk_size - overlap)]
+        script_chunks = []  # List to store script chunks
 
-        trigger_categories = {
-            "Violence": {"mapped_name": "Violence", "description": "Any act involving physical force or aggression intended to cause harm, injury, or death."},
-            "Death": {"mapped_name": "Death References", "description": "Any mention, implication, or depiction of the loss of life, including direct deaths or abstract references to mortality."},
-            "Substance_Use": {"mapped_name": "Substance Use", "description": "References to consumption, misuse, or abuse of drugs, alcohol, or other intoxicating substances."},
-            "Gore": {"mapped_name": "Gore", "description": "Graphic depictions of severe physical injuries, mutilation, or extreme bodily harm."},
-            "Sexual_Content": {"mapped_name": "Sexual Content", "description": "Depictions or mentions of sexual activity, intimacy, or sexual behavior."},
-            "Self_Harm": {"mapped_name": "Self-Harm", "description": "Behaviors where an individual intentionally causes harm to themselves."},
-            "Mental_Health": {"mapped_name": "Mental Health Issues", "description": "References to mental health struggles, disorders, or psychological distress."}
-        }
+        # Split the script into smaller chunks
+        for i in range(0, len(script), chunk_size - overlap):
+            chunk = script[i:i + chunk_size]
+            script_chunks.append(chunk)
+        
+        print(f"Split into {len(script_chunks)} chunks with {overlap} token overlap")  # Inform about the chunking
 
-        identified_triggers = {}
+        identified_triggers = {}  # Dictionary to store the identified triggers
 
+        # Process each chunk of the script
         for chunk_idx, chunk in enumerate(script_chunks, 1):
             print(f"\n--- Processing Chunk {chunk_idx}/{len(script_chunks)} ---")
+            print(f"Chunk text (preview): {chunk[:50]}...")  # Preview of the current chunk
+            
+            # Check each category for triggers
             for category, info in trigger_categories.items():
                 mapped_name = info["mapped_name"]
                 description = info["description"]
@@ -181,14 +182,23 @@ def analyze_script(script):
             print(f"- {mapped_name}: found in {count} chunks")
 
         if not final_triggers:
+            print("No triggers detected")  # No triggers detected
             final_triggers = ["None"]
 
-        return final_triggers
+        print("\nReturning results...")
+        return final_triggers  # Return the list of detected triggers
+
+    except Exception as e:
+        # Handle errors and provide stack trace
+        print(f"\nERROR OCCURRED: {str(e)}")
+        print("Stack trace:")
+        import traceback
+        traceback.print_exc()
+        return {"error": str(e)}
 
 def get_detailed_analysis(script):
-    analyzer = ContentAnalyzer()
     print("\n=== Starting Detailed Analysis ===")
-    triggers = analyzer.analyze_text(script)
+    triggers = analyze_script(script)  # Call the analyze_script function
     
     if isinstance(triggers, list) and triggers != ["None"]:
         result = {
@@ -205,5 +215,5 @@ def get_detailed_analysis(script):
             "analysis_timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
-    print("\nFinal Result Dictionary:", result)
+    print("\nFinal Result Dictionary:", result)  # Output the final result dictionary
     return result
