@@ -150,9 +150,9 @@ def analyze_script(script):
                     print("Generating response...")  # Indicate that the model is generating a response
                     outputs = model.generate(
                         **inputs,
-                        max_new_tokens=3,  # Limit response length
+                        max_new_tokens=5,  # Limit response length
                         do_sample=True,  # Enable sampling for more diverse output
-                        temperature=0.5,  # Control randomness of the output
+                        temperature=0.3,  # Control randomness of the output
                         top_p=0.9,  # Use nucleus sampling
                         pad_token_id=tokenizer.eos_token_id  # Pad token ID
                     )
