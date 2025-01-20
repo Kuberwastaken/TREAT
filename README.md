@@ -42,7 +42,7 @@ To use the [Llama-3.2-1B model](https://huggingface.co/meta-llama/Llama-3.2-1B),
 
 2. **Download the Llama-3.2-1B Model:**
 
-   The model will be downloaded automatically when running the script analysis for the first time, provided you have received access.
+   The model will be downloaded automatically when running the program for the first time, provided you have received access.
 
 ### Environment Setup
 To set up the development environment, you will need to create a virtual environment and install the necessary dependencies.
