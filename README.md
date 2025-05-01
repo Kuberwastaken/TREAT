@@ -1,7 +1,7 @@
 ![Treat_Banner](static/images/readme-images/New_Treat_Banner.png)
 
 <h1 align="center">
-  Trigger Recognition for Enjoyable and Appropriate Television
+  Trigger Recognition for Enjoyable and Appropriate Television 
 </h1>
 
 <p align="center">
